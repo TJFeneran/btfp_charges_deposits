@@ -12,14 +12,14 @@
 	$data = $_POST;
 	if(count($data) > 0) {
 	
+		$eventid = intval($data["eventid"]);
 		$data["contact"] = json_decode($data["contact"], true);
 		$refId = $data["userid"]."-".$data["tourdateid"]."-".$data["regid"];
 
-		$merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
-		
-		//PUT ALL DEPOSIT PROFILES INTO DTS AUTHNET CIM
-		
 		include("auth.php");
+		$merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
+		$merchantAuthentication->setName($authid);
+		$merchantAuthentication->setTransactionKey($authkey);
 		
 		// Set credit card information for payment profile
 		$creditCard = new AnetAPI\CreditCardType();
